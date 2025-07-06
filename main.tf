@@ -1,3 +1,4 @@
+# Define required providers and lock AWS provider version for consistency
 terraform {
   required_providers {
     aws = {
