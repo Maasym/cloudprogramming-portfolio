@@ -1,4 +1,5 @@
 resource "aws_wafv2_web_acl" "default" {
+  provider    = aws.us_east_1
   name        = "greenleaf-website-acl-${var.environment}"
   description = "WAF for GreenLeaf static website"
   scope       = "CLOUDFRONT"
