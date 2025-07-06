@@ -30,9 +30,9 @@ resource "aws_wafv2_web_acl" "default" {
     }
 
     visibility_config {
-      cloudwatch_metrics_enabled = true
+      cloudwatch_metrics_enabled = false
       metric_name                = "CommonRuleSet"
-      sampled_requests_enabled   = true
+      sampled_requests_enabled   = false
     }
   }
 
@@ -91,4 +91,9 @@ resource "aws_wafv2_web_acl" "default" {
   }
 
   tags = var.tags
+}
+
+resource "aws_wafv2_web_acl_association" "default" {
+  resource_arn = aws_cloudfront_distribution.s3_distribution.arn
+  web_acl_arn  = aws_wafv2_web_acl.default.arn
 }
