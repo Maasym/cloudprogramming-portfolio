@@ -14,6 +14,8 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     origin_id                = "S3-${aws_s3_bucket.web_hosting.id}"
     
     origin_access_control_id = aws_cloudfront_origin_access_control.default.id
+
+    origin_path = "/dist"
   }
 
   default_root_object = "index.html"
