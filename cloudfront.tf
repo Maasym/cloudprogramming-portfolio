@@ -1,4 +1,5 @@
 resource "aws_cloudfront_origin_access_control" "default" {
+  provider                          = aws.us_east_1
   name                              = "oac-for-greenleaf-web"
   description                       = "Origin Access Control for the Greenleaf website S3 bucket"
   origin_access_control_origin_type = "s3"
@@ -7,6 +8,7 @@ resource "aws_cloudfront_origin_access_control" "default" {
 }
 
 resource "aws_cloudfront_distribution" "s3_distribution" {
+  provider= aws.us_east_1  
   enabled = true 
 
   origin {
