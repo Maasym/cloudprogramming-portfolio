@@ -22,6 +22,8 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
 
   default_root_object = "index.html"
 
+  web_acl_id = aws_wafv2_web_acl.default.arn
+
   default_cache_behavior {
     target_origin_id = "S3-${aws_s3_bucket.web_hosting.id}"
 

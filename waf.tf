@@ -92,9 +92,3 @@ resource "aws_wafv2_web_acl" "default" {
 
   tags = var.tags
 }
-
-resource "aws_wafv2_web_acl_association" "default" {
-  provider     = aws.us_east_1
-  resource_arn = aws_cloudfront_distribution.s3_distribution.arn
-  web_acl_arn  = aws_wafv2_web_acl.default.arn
-}
