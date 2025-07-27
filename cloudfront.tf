@@ -21,6 +21,12 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     origin_path              = "/dist"  # Serve files from /dist folder in the bucket
   }
 
+  logging_config {
+    bucket          = aws_s3_bucket.cloudfront_logs.bucket_domain_name
+    include_cookies = false
+    prefix          = "cf-logs/"
+  }
+
   default_root_object = "index.html"
 
   # Associate WAF with CloudFront

@@ -16,9 +16,9 @@ resource "aws_s3_bucket_ownership_controls" "web_hosting" {
 resource "aws_s3_bucket_public_access_block" "web_hosting" {
   bucket                  = aws_s3_bucket.web_hosting.id
   block_public_acls       = true
-  block_public_policy     = false
+  block_public_policy     = true
   ignore_public_acls      = true
-  restrict_public_buckets = false
+  restrict_public_buckets = true
 }
 
 # S3 bucket policy to allow CloudFront access to objects in the bucket
@@ -43,4 +43,22 @@ resource "aws_s3_bucket_policy" "web_hosting_policy" {
       }
     ]
   })
+}
+
+#Logging Bucket for CloudFront access logs
+resource "aws_s3_bucket" "cloudfront_logs" {
+  bucket = "greenleaf-logs-${var.environment}"
+
+  tags = merge(var.tags, {
+    Purpose = "cloudfront-access-logs"
+  })
+}
+
+# Block public access for log bucket as well
+resource "aws_s3_bucket_public_access_block" "cloudfront_logs" {
+  bucket                  = aws_s3_bucket.cloudfront_logs.id
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
 }
